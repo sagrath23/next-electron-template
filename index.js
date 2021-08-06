@@ -1,5 +1,5 @@
 // TODO: convert to typescript
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const { createServer } = require('http');
 const next = require('next');
 
@@ -65,4 +65,8 @@ app.on('activate', () => {
 	if (win === null) {
 		createWindow();
 	}
+});
+
+ipcMain.on('message', (event, message) => {
+	event.sender.send('message', message);
 });
